@@ -1,0 +1,6 @@
+requests
+stem
+urllib3
+streamlit
+pandas
+plotly
