@@ -32,7 +32,7 @@
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone https://github.com/gemini-cli-agent/Hellsing-Attack.git
+    git clone https://github.com/fito422480/Hellsing-Attack.git
     cd Hellsing-Attack
     ```
 
