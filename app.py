@@ -6,7 +6,7 @@ from nocturne import port_scan, http_flood, tcp_flood, slowloris_attack, ddos_at
 from language import t, Config
 
 def main():
-    st.set_page_config(page_title="Nocturne Attack", page_icon="ðŸ”¥", layout="wide")
+    st.set_page_config(page_title="Hellsing Attack", page_icon="ðŸ”¥", layout="wide")
 
     st.title("Hellsing Attack")
     st.markdown(t.get('warning'))
