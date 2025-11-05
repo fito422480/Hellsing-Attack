@@ -6,7 +6,7 @@ Agradecemos a los investigadores de seguridad que ayudan a mantener segura a nue
 
 ### Cómo Reportar
 
-Por favor, envíe un correo electrónico a rodrigolopezpizarro271@gmail.com con el asunto "VULNERABILIDAD: [breve descripción]" e incluya la siguiente información:
+Por favor, envíe un correo electrónico a adolfo.andres.ayala@gmail.com con el asunto "VULNERABILIDAD: [breve descripción]" e incluya la siguiente información:
 
 - Descripción detallada de la vulnerabilidad
 - Pasos para reproducir la vulnerabilidad
