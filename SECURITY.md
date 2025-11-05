@@ -72,4 +72,4 @@ El uso malintencionado de esta herramienta es estrictamente prohibido y puede se
 
 *Última actualización: Octubre 2025*
 
-*© 2025 Nocturne Project. Todos los derechos reservados.*
+*© 2025 Fito's Project. Todos los derechos reservados.*
