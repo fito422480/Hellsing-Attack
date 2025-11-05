@@ -4,9 +4,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/gemini-cli-agent/Hellsing-Attack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
-  <a href="https://github.com/gemini-cli-agent/Hellsing-Attack/stargazers"><img src="https://img.shields.io/github/stars/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
-  <a href="https://github.com/gemini-cli-agent/Hellsing-Attack/releases"><img src="https://img.shields.io/github/v/release/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
+  <a href="https://github.com/fito422480/Hellsing-Attack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
+  <a href="https://github.com/fito422480/Hellsing-Attack/stargazers"><img src="https://img.shields.io/github/stars/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
+  <a href="https://github.com/fito422480/Hellsing-Attack/releases"><img src="https://img.shields.io/github/v/release/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
 </p>
 
 ---
