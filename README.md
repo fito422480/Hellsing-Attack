@@ -1,10 +1,6 @@
 
 <p align="center">
-  <img src="https://i.imgur.com/sC4M4M6.png" alt="Hellsing-Attack">
-</p>
-
-<p align="center">
-    <em>"El pájaro de Hermes es mi nombre, comiendo mis alas para domesticarme."</em>
+  <img src="https://i.imgur.com/YVPJzpJ.gif" alt="Hellsing-Attack">
 </p>
 
 <p align="center">
@@ -32,7 +28,7 @@
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone https://github.com/gemini-cli-agent/Hellsing-Attack.git
+    git clone https://github.com/fito422480/Hellsing-Attack.git
     cd Hellsing-Attack
     ```
 
