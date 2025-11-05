@@ -4,10 +4,6 @@
 </p>
 
 <p align="center">
-    <em>"El pájaro de Hermes es mi nombre, comiendo mis alas para domesticarme."</em>
-</p>
-
-<p align="center">
   <a href="https://github.com/gemini-cli-agent/Hellsing-Attack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
   <a href="https://github.com/gemini-cli-agent/Hellsing-Attack/stargazers"><img src="https://img.shields.io/github/stars/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
   <a href="https://github.com/gemini-cli-agent/Hellsing-Attack/releases"><img src="https://img.shields.io/github/v/release/gemini-cli-agent/Hellsing-Attack?style=for-the-badge"></a>
