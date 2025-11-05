@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://i.imgur.com/sC4M4M6.png" alt="Hellsing-Attack">
+  <img src="https://i.imgur.com/YVPJzpJ.gif" alt="Hellsing-Attack">
 </p>
 
 <p align="center">
