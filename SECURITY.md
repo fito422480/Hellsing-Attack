@@ -56,13 +56,6 @@ Actualmente no ofrecemos un programa de recompensas por errores, pero estaremos 
 
 ## Historial de Seguridad
 
-Puede encontrar un registro de todas las vulnerabilidades corregidas en el archivo [CHANGELOG.md](CHANGELOG.md).
-
-## Contacto de Seguridad
-
-Para cualquier consulta relacionada con la seguridad, contacte a:
-
-- **Equipo de Seguridad de Nocturne**: rodrigolopezpizarro271@gmail.com
 - **Clave PGP**: Todavia no
 
 ## Uso Ético
